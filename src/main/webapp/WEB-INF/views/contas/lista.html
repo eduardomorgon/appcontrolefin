@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/template :: head('Lista de Contas a Pagar')">
+</head>
+
+
+<body>
+	
+	<div th:replace="fragments/template :: menu"></div>
+
+	<div class="container">
+		<br />
+		
+       <div id="cards" data-title="nome" 
+       		   data-url="/contas/json"
+       		   data-sort="dataVencimento,asc"
+			   data-url-detail="{'label':'Detalhes', 'url':'/contas/{id}'}"
+		       data-description="descricao, formatDate:dataVencimento, formatNumero:valor"> 
+       </div>
+       
+	</div>
+
+</body>
+
+
+
+
+
+<div th:include="fragments/template :: script"></div>
+
+
+
+
+<script type="text/javascript">
+
+ new cardsPagination('cards');
+
+</script>
+
+</html>

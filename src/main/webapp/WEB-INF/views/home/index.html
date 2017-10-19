@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/template :: head('Home')">
+</head>
+
+
+<body>
+	
+	<div th:replace="fragments/template :: menu"></div>
+
+	<div class="container">
+		<br />
+		<div class="alert alert-success text-center" role="alert">
+			<h2 th:inline="text">
+				Olá [[${#httpServletRequest.remoteUser}]], você tem [[${countNextSevenDays}]] conta(s) que vencerá nos proximos 7 dias!
+			</h2>
+		</div>
+	</div>
+
+</body>
+
+
+<div th:include="fragments/template :: script"></div>
+
+</html>
