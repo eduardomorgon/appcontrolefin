@@ -1,0 +1,6 @@
+/target/
+/.settings
+/db
+/nbproject/
+.project
+.classpath
