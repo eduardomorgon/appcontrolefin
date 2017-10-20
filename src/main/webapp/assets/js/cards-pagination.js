@@ -13,7 +13,8 @@ var cardsPagination = (function () {
         let _sort;
         let _size = 'size';
         let _page = 'page';
-        let _limit = 6;
+        let _limit = 1;
+        let _limitPagePagination = 5;
         
         
         
@@ -101,10 +102,15 @@ var cardsPagination = (function () {
 
         function criarLink(label, page) {
             let link = document.createElement('a');
-            link.innerText = label;
+            let span = document.createElement('span');
+            span.setAttribute('aria-hidden', 'true');
+            span.className = 'font-weight-bold';
+            span.innerText = label;
             link.className = 'page-link';
             link.href = '#'
+            
             link.onclick = function () {buscar(page);};
+            link.appendChild(span);
             return link;
         }
 
@@ -112,19 +118,19 @@ var cardsPagination = (function () {
             let nav = document.createElement('nav');
 
             let ul = document.createElement('ul');
-            ul.className = 'pagination justify-content-center';
+            ul.className = 'pagination pagination-sm justify-content-center';
             
             let li, link;
 
             //create first page
             li = criarLi(object.first ?'disabled' : '');
-            link = criarLink('Primeiro', 0);
+            link = criarLink(' << ', 0);
             li.appendChild(link);
             ul.appendChild(li);
 
             //create previous page
             li = criarLi(object.first ? 'disabled' : '');
-            link = criarLink('Anterior', object.number-2);
+            link = criarLink(' < ', object.number-2);
             li.appendChild(link);
             ul.appendChild(li);
 
@@ -138,13 +144,13 @@ var cardsPagination = (function () {
             
             //create next page
             li = criarLi(object.last ? 'disabled' : '');
-            link = criarLink('Próximo', object.number+1);
+            link = criarLink(' > ', object.number+1);
             li.appendChild(link);
             ul.appendChild(li);
 
             //create last page
             li = criarLi(object.last ? 'disabled' : '' );
-            link = criarLink('Último', object.totalPages-1);
+            link = criarLink(' >> ', object.totalPages-1);
             li.appendChild(link);
             ul.appendChild(li);
 
@@ -178,7 +184,7 @@ var cardsPagination = (function () {
         function criarSequenciaPaginacao (lista) {
             let pages = [];
         
-            let visiblePage = lista.totalPages < 5 ? lista.totalPages : 5;
+            let visiblePage = lista.totalPages < _limitPagePagination ? lista.totalPages : _limitPagePagination;
         
             let half = Math.floor(visiblePage / 2);
             let start = lista.number - half + 1 - visiblePage % 2;
