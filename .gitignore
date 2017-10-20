@@ -2,5 +2,5 @@
 /.settings
 /db
 /nbproject/
-.project
-.classpath
+/.project
+/.classpath
