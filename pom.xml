@@ -36,17 +36,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<!-- Lib usada no heroku -->
 		<dependency>
 		  <groupId>org.postgresql</groupId>
 		  <artifactId>postgresql</artifactId>
 		  <version>9.4.1208</version>
 		</dependency>
 		
-		<!-- <dependency>
+		<dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.4.0</version>
-        </dependency> -->
+        </dependency>
     </dependencies>
     <build>
         <plugins>

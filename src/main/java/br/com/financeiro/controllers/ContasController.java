@@ -40,6 +40,7 @@ public class ContasController {
     
     @GetMapping("/novo")
     public ModelAndView form(Conta conta) {
+    	
         ModelAndView mv = new ModelAndView("contas/form");
         mv.addObject("conta", conta);
         return mv;
@@ -47,7 +48,7 @@ public class ContasController {
     
     @PostMapping
     public String salvar(@Valid Conta conta, BindingResult bindingResult) {
-    	System.out.println("POST");
+    	
     	if (bindingResult.hasErrors()) {
 			return "/contas/form";
 		}
@@ -58,23 +59,24 @@ public class ContasController {
     
     @PutMapping
     public String editar(@Valid Conta conta, BindingResult bindingResult) {
-    	System.out.println("PUT");
+    	
         if (bindingResult.hasErrors()) {
 			return "/contas/form";
 		}
-    	System.out.println("passei aqui");
         service.save(conta);
         return "redirect:/contas";
     }
     
     @GetMapping
     public ModelAndView listar() { 
-        ModelAndView mv = new ModelAndView("contas/lista");
+
+    	ModelAndView mv = new ModelAndView("contas/lista");
         return mv;
     }
     
     @GetMapping("/{id}")
     public ModelAndView editar(@PathVariable Integer id) {
+    	
         Conta contaParaEditar = service.find(id);
         ModelAndView mv = new ModelAndView("contas/form"); 
         mv.addObject("conta", contaParaEditar);
@@ -86,15 +88,13 @@ public class ContasController {
         
         Conta conta = service.pay(id);
         ModelAndView mv = new ModelAndView("contas/form"); 
-        //adduma mensagem de pagamento
-        
         mv.addObject("conta", conta);
         return mv;
     }
     
     @DeleteMapping
     public String excluir(Conta conta) {
-    	System.out.println("DELETE");
+    	
         service.delete(conta);
         return "redirect:/contas";
     }
@@ -102,47 +102,21 @@ public class ContasController {
     @GetMapping(value = "/json", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Page<Conta> listar(Pageable pageable) {
+    	
     	return service.findAllByPage(pageable);
     }
     
     @GetMapping("/pagas")
     public String pagas() { 
+    	
         return "contas/pagas";
     }
     
     @GetMapping(value = "/pagas/json", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Page<Conta> listaPagas(Pageable pageable) {
+    	
     	return service.findAllByPayPage(pageable);
     }
-    
-    
-//    @GetMapping(value = "/json", produces = {MediaType.APPLICATION_JSON_VALUE})
-//    @ResponseBody
-//    public List<Conta> json() {
-//        return dao.listarTodos();
-//    }
-    
-//    @GetMapping(value = "/json", produces = {MediaType.APPLICATION_JSON_VALUE})
-//    @ResponseBody
-//    public PaginatedList list(@RequestParam(defaultValue = "0", required = false) int page, 
-//    						  @RequestParam(defaultValue = "0", required = false) int max)
-//    {
-////       ModelAndView modelAndView = new ModelAndView("category/list");
-////       modelAndView.addObject("paginatedList", dao.paginated(page, 10));
-//       return dao.paginated(page, max);
-//    }
-//    @GetMapping(value = "/criteriaLista", produces = {MediaType.APPLICATION_JSON_VALUE})
-//    @ResponseBody
-//    public List<Conta> listaCriteria(Conta conta, @RequestParam(defaultValue = "0", required = false) int page) {
-////https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html
-//    	return dao.listaTeste(conta, page);
-//    }
-//    
-//    @GetMapping(value = "/criteria")
-//    @ResponseBody
-//    public Long criteria(Conta conta) {
-//    	return dao.total(conta);
-//    }
     
 }

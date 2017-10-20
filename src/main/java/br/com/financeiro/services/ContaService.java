@@ -27,34 +27,40 @@ public class ContaService {
 	}
 	
 	public void save(Conta conta) {
+		
 		repository.save(conta);
 	}
 	
 	public void delete(Conta conta) {
+		
 		repository.delete(conta.getId());
 	}
 	
 	public Conta find(Integer id) {
+		
 		return repository.findOne(id);
 	}
 	
     public Page<Conta> findAllByPage(Pageable pageable) {
+    	
     	return repository.findByDataPagamentoIsNull(pageable);
     }
     
     public Page<Conta> findAllByPayPage(Pageable pageable) {
+    	
     	return repository.findByDataPagamentoIsNotNull(pageable);
     }
     
     public Conta pay(Integer id) {
+    	
     	Conta conta = repository.findOne(id);
     	conta.doPayment();
     	repository.save(conta);
     	return conta;
-    	
     }
     
     public Long countNextSevenDays() {
+    	
     	Calendar today = Calendar.getInstance();
     	Calendar nextWeek = Calendar.getInstance();
     	nextWeek.add(Calendar.DATE, 7);
