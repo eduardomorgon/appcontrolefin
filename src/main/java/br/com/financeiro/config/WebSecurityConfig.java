@@ -13,10 +13,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	@Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         
-		http
+        http
             .authorizeRequests()
             	.antMatchers("/login").permitAll()
 //                .antMatchers("/", "/home").permitAll()
@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
             .logout()
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/login?logout");
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout");
 //                .permitAll();
     }
 
@@ -36,14 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+            .withUser("user").password("password").roles("USER");
     }
     
     @Override
-	public void configure(WebSecurity web) throws Exception {
-	    web
-	       .ignoring()
-	       .antMatchers("/assets/**");
-	}
+    public void configure(WebSecurity web) throws Exception {
+        web
+           .ignoring()
+           .antMatchers("/assets/**");
+    }
 
 }

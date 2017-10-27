@@ -13,7 +13,7 @@ var cardsPagination = (function () {
         let _sort;
         let _size = 'size';
         let _page = 'page';
-        let _limit = 1;
+        let _limit = 6;
         let _limitPagePagination = 5;
         
         
@@ -41,7 +41,12 @@ var cardsPagination = (function () {
         function buscar(pagina) {
 
             fetch(_urlData+'?'+_size+'='+_limit+'&'+_page+'='+pagina+(_sort ? '&sort='+_sort : ''), 
-            		{ method: 'GET', credentials: 'include' })
+            		{ method: 'GET', credentials: 'include'
+            		 ,headers: new Headers({
+            			    'accept': 'application/json'
+            		  })	
+            		}
+            		)
                 .then(response => response.json())
                 .then(json =>  createTemplateCard(json));
         }

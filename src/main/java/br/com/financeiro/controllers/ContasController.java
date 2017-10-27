@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.financeiro.models.Conta;
 import br.com.financeiro.services.ContaService;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -28,95 +29,95 @@ import br.com.financeiro.services.ContaService;
  */
 @Controller
 @RequestMapping("/contas")
-@Scope(value=WebApplicationContext.SCOPE_REQUEST)
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class ContasController {
-    
-	private ContaService service;
+
+    private ContaService service;
 
     @Autowired
     public ContasController(ContaService service) {
         this.service = service;
     }
-    
+
     @GetMapping("/novo")
     public ModelAndView form(Conta conta) {
-    	
+
         ModelAndView mv = new ModelAndView("contas/form");
         mv.addObject("conta", conta);
         return mv;
     }
-    
-    @PostMapping
-    public String salvar(@Valid Conta conta, BindingResult bindingResult) {
-    	
-    	if (bindingResult.hasErrors()) {
-			return "/contas/form";
-		}
-    	
-        service.save(conta);
-        return "redirect:/contas";
-    }
-    
-    @PutMapping
-    public String editar(@Valid Conta conta, BindingResult bindingResult) {
-    	
-        if (bindingResult.hasErrors()) {
-			return "/contas/form";
-		}
-        service.save(conta);
-        return "redirect:/contas";
-    }
-    
-    @GetMapping
-    public ModelAndView listar() { 
 
-    	ModelAndView mv = new ModelAndView("contas/lista");
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
+    public String salvar(@Valid Conta conta, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "/contas/form";
+        }
+
+        service.save(conta);
+        return "redirect:/contas/lancadas";
+    }
+
+//    @PutMapping
+//    public String editar(@Valid Conta conta, BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors()) {
+//            return "/contas/form";
+//        }
+//        service.save(conta);
+//        return "redirect:/contas";
+//    }
+
+    @GetMapping("/lancadas")
+    public ModelAndView listar() {
+
+        ModelAndView mv = new ModelAndView("contas/lista");
         return mv;
     }
-    
+
     @GetMapping("/{id}")
-    public ModelAndView editar(@PathVariable Integer id) {
-    	
+    public ModelAndView buscar(@PathVariable Integer id) {
+
         Conta contaParaEditar = service.find(id);
-        ModelAndView mv = new ModelAndView("contas/form"); 
+        ModelAndView mv = new ModelAndView("contas/form");
         mv.addObject("conta", contaParaEditar);
         return mv;
     }
-    
+
     @GetMapping("/{id}/pagar")
     public ModelAndView pagar(@PathVariable Integer id) {
-        
+
         Conta conta = service.pay(id);
-        ModelAndView mv = new ModelAndView("contas/form"); 
+        ModelAndView mv = new ModelAndView("contas/form");
         mv.addObject("conta", conta);
         return mv;
     }
-    
+
     @DeleteMapping
     public String excluir(Conta conta) {
-    	
+
         service.delete(conta);
         return "redirect:/contas";
     }
-    
-    @GetMapping(value = "/json", produces = {MediaType.APPLICATION_JSON_VALUE})
+
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE}, headers = "Accept=application/json")
     @ResponseBody
     public Page<Conta> listar(Pageable pageable) {
-    	
-    	return service.findAllByPage(pageable);
+
+        return service.findAllByPage(pageable);
     }
-    
+
     @GetMapping("/pagas")
-    public String pagas() { 
-    	
+    public String pagas() {
+
         return "contas/pagas";
     }
-    
-    @GetMapping(value = "/pagas/json", produces = {MediaType.APPLICATION_JSON_VALUE})
+
+    @GetMapping(value = "/finalizadas", produces = {MediaType.APPLICATION_JSON_VALUE}, headers = "Accept=application/json")
     @ResponseBody
     public Page<Conta> listaPagas(Pageable pageable) {
-    	
-    	return service.findAllByPayPage(pageable);
+
+        return service.findAllByPayPage(pageable);
     }
-    
+
 }
