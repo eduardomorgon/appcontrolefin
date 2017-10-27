@@ -29,14 +29,14 @@ import org.springframework.format.annotation.NumberFormat.Style;
  */
 @Entity
 public class Conta implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Size(max=25)
+    @Size(max = 25)
     @NotEmpty
     private String nome;
-    @Size(max=100)
+    @Size(max = 100)
     @NotEmpty
     private String descricao;
     @NotNull
@@ -47,10 +47,10 @@ public class Conta implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Calendar dataPagamento;
     @NotNull
-    @DecimalMin(value="0.1", inclusive = false)
-    @NumberFormat(style=Style.CURRENCY)
+    @DecimalMin(value = "0.1", inclusive = false)
+    @NumberFormat(style = Style.CURRENCY)
     private BigDecimal valor;
-    
+
     public Integer getId() {
         return id;
     }
@@ -90,7 +90,7 @@ public class Conta implements Serializable {
     public void setDataPagamento(Calendar dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
-    
+
     public BigDecimal getValor() {
         return valor;
     }
@@ -99,13 +99,12 @@ public class Conta implements Serializable {
         this.valor = valor;
     }
 
-	public void doPayment() {
-		this.setDataPagamento(Calendar.getInstance());
-		
-	}
-	
-	public boolean isPay() {
-		return dataPagamento != null;
-	}
+    public void doPayment() {
+        this.setDataPagamento(Calendar.getInstance());
+    }
+
+    public boolean isPay() {
+        return dataPagamento != null;
+    }
 
 }

@@ -12,16 +12,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.financeiro.models.Conta;
-import br.com.financeiro.services.ContaService;
 import org.springframework.web.bind.annotation.RequestMethod;
+import br.com.financeiro.services.ContasService;
 
 /**
  *
@@ -32,10 +30,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class ContasController {
 
-    private ContaService service;
+    private ContasService service;
 
     @Autowired
-    public ContasController(ContaService service) {
+    public ContasController(ContasService service) {
         this.service = service;
     }
 
@@ -57,16 +55,6 @@ public class ContasController {
         service.save(conta);
         return "redirect:/contas/lancadas";
     }
-
-//    @PutMapping
-//    public String editar(@Valid Conta conta, BindingResult bindingResult) {
-//
-//        if (bindingResult.hasErrors()) {
-//            return "/contas/form";
-//        }
-//        service.save(conta);
-//        return "redirect:/contas";
-//    }
 
     @GetMapping("/lancadas")
     public ModelAndView listar() {
@@ -97,7 +85,7 @@ public class ContasController {
     public String excluir(Conta conta) {
 
         service.delete(conta);
-        return "redirect:/contas";
+        return "redirect:/contas/lancadas";
     }
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE}, headers = "Accept=application/json")

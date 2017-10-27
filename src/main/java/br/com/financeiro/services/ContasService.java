@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
  *
  * @author eduardo
  */
-public interface ContaService {
+public interface ContasService {
 
     Long countNextSevenDays();
 

@@ -17,12 +17,12 @@ import br.com.financeiro.repositories.ContasRepository;
 @Service
 @Transactional
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
-public class ContaServiceImpl implements ContaService {
+public class ContasServiceImpl implements ContasService {
 
     private ContasRepository repository;
 
     @Autowired
-    public ContaServiceImpl(ContasRepository repository) {
+    public ContasServiceImpl(ContasRepository repository) {
         this.repository = repository;
     }
 

@@ -11,11 +11,11 @@ import br.com.financeiro.models.Conta;
 
 @Repository
 public interface ContasRepository extends PagingAndSortingRepository<Conta, Integer> {
-	
-	Page<Conta> findByDataPagamentoIsNull(Pageable pageable);
-	
-	Page<Conta> findByDataPagamentoIsNotNull(Pageable pageable);
-	
-	Long countByDataVencimentoBetweenAndDataPagamentoIsNull(Calendar start, Calendar end);
+
+    Page<Conta> findByDataPagamentoIsNull(Pageable pageable);
+
+    Page<Conta> findByDataPagamentoIsNotNull(Pageable pageable);
+
+    Long countByDataVencimentoBetweenAndDataPagamentoIsNull(Calendar start, Calendar end);
 
 }
