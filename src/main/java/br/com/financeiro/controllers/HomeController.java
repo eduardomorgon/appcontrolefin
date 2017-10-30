@@ -10,14 +10,14 @@ import org.springframework.web.context.WebApplicationContext;
 import br.com.financeiro.services.ContasServiceImpl;
 
 @Controller
-@Scope(value=WebApplicationContext.SCOPE_REQUEST)	
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class HomeController {
 
     private ContasServiceImpl contaService;
 
     @Autowired
     public HomeController(ContasServiceImpl contaService) {
-            this.contaService = contaService;
+        this.contaService = contaService;
     }
 
     @GetMapping("/")
@@ -26,6 +26,6 @@ public class HomeController {
         Long countNextSevenDays = contaService.countNextSevenDays();
         model.addAttribute("countNextSevenDays", countNextSevenDays);
         return "home/index";
-   }
-	
+    }
+
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:include="fragments/template :: head('Formulário de Perfil')">
+    </head>
+
+    <body>
+        <div th:replace="fragments/template :: menu"></div>
+        <br/>
+        <div class="container col-lg-5">
+            <!--<div class="row justify-content-md-center">-->
+            <form th:action="@{/roles}" method="POST" th:object="${role}">
+
+                <!-- <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                 
+                                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+                                </div> -->
+
+                <!-- http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#template-layout -->
+
+                <input type="hidden" name="id" th:field="*{id}"/>
+
+                <div class="form-group">
+                    <label for="name" class="col-form-label">Nome</label>
+                    <input type="text"
+                           class="form-control"
+                           th:required="required"
+                           th:errorclass="is-invalid"
+                           maxlength="25"
+                           th:readonly="*{id != null}"
+                           id="name" name="name" placeholder="Nome" th:field="*{name}"/>
+                    <p class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+
+                </div>
+
+                
+                <div th:switch="${role.id == null}" class="form-group text-center" >
+                    <span th:case="true" >
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </span>
+                    <span th:case="false" >
+                        <button th:type="submit" th:name="_method" 
+                                th:value="DELETE"  
+                                th:onclick="'return window.confirm(\'Deseja excluir '+ ${role.name} +'?\');'"
+                                class="btn btn-danger">Excluir</button>
+                    </span>
+                </div>
+                <div class=" text-center" >
+                    <a class="btn btn-secondary btn-block" role="button" href="/roles/all">Voltar</a>
+                </div>
+                
+            </form>
+
+        </div>
+
+        <div th:include="fragments/template :: script"></div>
+
+    </body>
+</html>

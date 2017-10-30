@@ -46,7 +46,7 @@ public class ContasControllerTest {
                 .create();
         
         conta2 = new ContaBuilder()
-                .withId(1)
+                .withId(2)
                 .withNome("Luz")
                 .withDescricao("Conta de Luz")
                 .withDataVencimento(new GregorianCalendar(2017, Calendar.OCTOBER, 30))
@@ -120,8 +120,8 @@ public class ContasControllerTest {
         
         Page<Conta> pageLista = contasController.listar(pageable);
         
-        Assert.assertEquals(pageLista.getContent().size(), 2);
-        Assert.assertEquals(pageLista.getTotalPages(), 1);
+        Assert.assertEquals(2, pageLista.getContent().size());
+        Assert.assertEquals(1, pageLista.getTotalPages());
         
     }
     
@@ -141,8 +141,8 @@ public class ContasControllerTest {
         
         Page<Conta> pageLista = contasController.listar(pageable);
         
-        Assert.assertEquals(pageLista.getContent().size(), 2);
-        Assert.assertEquals(pageLista.getTotalPages(), 1);
+        Assert.assertEquals(2, pageLista.getContent().size());
+        Assert.assertEquals(1, pageLista.getTotalPages());
         Assert.assertNotNull(page.getContent().get(0).getDataPagamento());
         Assert.assertNotNull(page.getContent().get(1).getDataPagamento());
     }

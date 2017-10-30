@@ -2,86 +2,86 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:include="fragments/template :: head('Formulário de Contas')">
     </head>
-    
+
     <body>
-    	<div th:replace="fragments/template :: menu"></div>
-    	<br/>
+        <div th:replace="fragments/template :: menu"></div>
+        <br/>
         <div class="container col-lg-5">
             <!--<div class="row justify-content-md-center">-->
             <form th:action="@{/contas}" method="POST" th:object="${conta}">
-            
-            	<!-- <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-            	 
-				    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
-				</div> -->
-				
-				<!-- http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#template-layout -->
-				
+
+                <!-- <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                 
+                                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+                                </div> -->
+
+                <!-- http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#template-layout -->
+
                 <input type="hidden" name="id" th:field="*{id}"/>
-                
-                    <div class="form-group">
-                        <label for="nome" class="col-form-label">Nome</label>
-                        <input type="text"
-                               class="form-control"
-                               th:required="required"
-                               th:readonly="*{pay}"
-                               th:errorclass="is-invalid"
-                               maxlength="25"
-                               id="nome" name="nome" placeholder="Nome" th:field="*{nome}"/>
-                        <p class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"/>
-                        
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="descricao" class="col-form-label">Descrição</label>
-                        <input type="text" class="form-control" id="descricao" maxlength="100"
-                        	   th:errorclass="is-invalid" th:readonly="*{pay}" th:required="required"
-                               name="descricao" placeholder="Descrição"  th:field="*{descricao}"/>
-                        <p class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="dataVencimento" class="col-form-label">Data Vencimento</label>
-                        <input type="date" class="form-control" th:readonly="*{pay}" th:required="required"
-                               id="dataVencimento" name="dataVencimento" th:errorclass="is-invalid"
-                               placeholder="Data Vencimento" th:field="*{{dataVencimento}}" />
-                        <p class="invalid-feedback" th:if="${#fields.hasErrors('dataVencimento')}" th:errors="*{dataVencimento}"/>
-                    </div>
-                    <div class="form-group" th:if="*{pay}">
-                        <label for="dataPagamento" class="col-form-label">Data Pagamento</label>
-                        <input type="date" class="form-control" readonly="true"
-                               id="dataPagamento" name="dataPagamento"  th:field="*{{dataPagamento}}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="valor" class="col-form-label">Valor</label>
-                        <input type="number" step="0.01" class="form-control" 
-                        th:readonly="*{pay}" th:errorclass="is-invalid" th:required="required"
-                        id="valor" name="valor" placeholder="Valor"  th:field="*{valor}"/>
-                        <p class="invalid-feedback" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"/>
-                    </div>
-               
+
+                <div class="form-group">
+                    <label for="nome" class="col-form-label">Nome</label>
+                    <input type="text"
+                           class="form-control"
+                           th:required="required"
+                           th:readonly="*{pay}"
+                           th:errorclass="is-invalid"
+                           maxlength="25"
+                           id="nome" name="nome" placeholder="Nome" th:field="*{nome}"/>
+                    <p class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"/>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao" class="col-form-label">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" maxlength="100"
+                           th:errorclass="is-invalid" th:readonly="*{pay}" th:required="required"
+                           name="descricao" placeholder="Descrição"  th:field="*{descricao}"/>
+                    <p class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"/>
+                </div>
+                <div class="form-group">
+                    <label for="dataVencimento" class="col-form-label">Data Vencimento</label>
+                    <input type="date" class="form-control" th:readonly="*{pay}" th:required="required"
+                           id="dataVencimento" name="dataVencimento" th:errorclass="is-invalid"
+                           placeholder="Data Vencimento" th:field="*{{dataVencimento}}" />
+                    <p class="invalid-feedback" th:if="${#fields.hasErrors('dataVencimento')}" th:errors="*{dataVencimento}"/>
+                </div>
+                <div class="form-group" th:if="*{pay}">
+                    <label for="dataPagamento" class="col-form-label">Data Pagamento</label>
+                    <input type="date" class="form-control" readonly="true"
+                           id="dataPagamento" name="dataPagamento"  th:field="*{{dataPagamento}}" />
+                </div>
+                <div class="form-group">
+                    <label for="valor" class="col-form-label">Valor</label>
+                    <input type="number" step="0.01" class="form-control" 
+                           th:readonly="*{pay}" th:errorclass="is-invalid" th:required="required"
+                           id="valor" name="valor" placeholder="Valor"  th:field="*{valor}"/>
+                    <p class="invalid-feedback" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"/>
+                </div>
+
                 <div th:switch="${conta.id == null}" class="form-group text-center" th:if="*{!pay}">
-                <span th:case="false" >
-	                <button type="submit" th:name="_method" th:value="PUT" class="btn btn-primary float-left">Editar</button>
-	                <a class="btn btn-success" role="button" th:href="@{'/contas/'+${conta.id}+'/pagar'}">Pagar</a>
-	                <button th:type="submit" th:name="_method" 
-	                		th:value="DELETE"  
-	                		th:onclick="'return window.confirm(\'Deseja excluir '+ ${conta.nome} +'?\');'"
-	                		class="btn btn-danger float-right">Excluir</button>
-            	</span>
-            	<span th:case="true">
-            		<button type="submit" class="btn btn-success">Salvar</button>
-            	</span>
-            	</div>
-            	<div th:switch="${conta.pay}" class=" text-center" >
-            		<a th:case="true" class="btn btn-secondary btn-block" role="button" href="/contas/pagas">Voltar</a>
-            		<a th:case="false" class="btn btn-secondary btn-block" role="button" href="/contas/lancadas">Voltar</a>
-            	</div>
-                
+                    <span th:case="false" >
+                        <button type="submit" th:name="_method" th:value="PUT" class="btn btn-primary float-left">Editar</button>
+                        <a class="btn btn-success" role="button" th:href="@{'/contas/'+${conta.id}+'/pagar'}">Pagar</a>
+                        <button th:type="submit" th:name="_method" 
+                                th:value="DELETE"  
+                                th:onclick="'return window.confirm(\'Deseja excluir '+ ${conta.nome} +'?\');'"
+                                class="btn btn-danger float-right">Excluir</button>
+                    </span>
+                    <span th:case="true">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </span>
+                </div>
+                <div th:switch="${conta.pay}" class=" text-center" >
+                    <a th:case="true" class="btn btn-secondary btn-block" role="button" href="/contas/pagas">Voltar</a>
+                    <a th:case="false" class="btn btn-secondary btn-block" role="button" href="/contas/lancadas">Voltar</a>
+                </div>
+
             </form>
-            
+
         </div>
-        
+
         <div th:include="fragments/template :: script"></div>
-        
+
     </body>
 </html>
