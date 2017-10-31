@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -32,6 +31,14 @@ public class Role implements Serializable {
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
+    public Role() {
+    }
+    
+    public Role(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    
     public Integer getId() {
         return id;
     }

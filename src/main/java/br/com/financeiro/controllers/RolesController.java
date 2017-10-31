@@ -39,6 +39,7 @@ public class RolesController {
     
     @GetMapping("/new")
     public ModelAndView form(Role role) {
+        
         ModelAndView modelAndView = new ModelAndView("roles/form");
         modelAndView.addObject("role", role);
         return modelAndView;
@@ -46,7 +47,8 @@ public class RolesController {
     
     @GetMapping("/all") 
     public ModelAndView all() {
-        ModelAndView modelAndView = new ModelAndView("/roles/list");
+        
+        ModelAndView modelAndView = new ModelAndView("roles/list");
         List<Role> roles = rolesService.all();
         modelAndView.addObject("roles", roles);
         return modelAndView;
@@ -54,9 +56,8 @@ public class RolesController {
     
     @GetMapping("/{id}")
     public ModelAndView find(@PathVariable Integer id) {
+        
         Role role = rolesService.find(id);
-//        ModelAndView modelAndView = new ModelAndView("roles/form");
-//        modelAndView.addObject("role", role);
         return form(role);
     }
     
